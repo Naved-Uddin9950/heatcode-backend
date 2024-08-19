@@ -9,7 +9,7 @@ import { app, PORT } from './constants.js';
 
 // controllers
 import { Login, Signup } from './Controllers/Auth/index.js';
-import { AddQuestions } from './Controllers/Questions/index.js';
+import { AddQuestions, ListQuestions } from './Controllers/Questions/index.js';
 
 // Middlewares
 app.use(express.json());
@@ -28,7 +28,7 @@ app.get('/submissions', (req, res) => { });
 
 // Questions Routes
 app.post('/questions', AddQuestions);
-app.get('/questions', (req, res) => { });
+app.get('/questions', ListQuestions);
 app.get('/questions/:id', (req, res) => { });
 
 // Server startup
