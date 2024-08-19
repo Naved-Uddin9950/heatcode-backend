@@ -1,9 +1,15 @@
+// packages
 import express from 'express';
 import _ from 'lodash';
-import { USERS } from './Database/Users.db.js';
-import { Login, Signup } from './Controllers/Auth/index.js';
-import { app, PORT } from './constants.js';
 import cookieParser from 'cookie-parser';
+
+// database and constants
+import { USERS } from './Database/Users.db.js';
+import { app, PORT } from './constants.js';
+
+// controllers
+import { Login, Signup } from './Controllers/Auth/index.js';
+import { AddQuestions } from './Controllers/Questions/index.js';
 
 // Middlewares
 app.use(express.json());
@@ -15,21 +21,15 @@ app.get('/', (req, res) => { });
 // Auth Routes
 app.post('/register', Signup);
 app.post('/login', Login);
-app.get('/users', (req, res) => {
-    let userList = _.cloneDeep(USERS);
-    userList.map((item) => {
-        delete item.password;
-    });
-
-    res.status(200).send(userList);
-});
 
 // Submissions Routes
 app.post('/submission', (req, res) => { });
 app.get('/submissions', (req, res) => { });
 
 // Questions Routes
+app.post('/questions', AddQuestions);
 app.get('/questions', (req, res) => { });
+app.get('/questions/:id', (req, res) => { });
 
 // Server startup
 app.listen(PORT, () => {
